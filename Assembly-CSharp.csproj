@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Assets\Codes\AtesEt.cs" />
     <Compile Include="Assets\Codes\Bonus.cs" />
+    <Compile Include="Assets\Codes\MobileJoy.cs" />
     <Compile Include="Assets\Codes\SesKod.cs" />
     <Compile Include="Assets\Codes\UcakHareket.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
