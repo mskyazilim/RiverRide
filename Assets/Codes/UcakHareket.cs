@@ -21,7 +21,7 @@ public class UcakHareket : MonoBehaviour
     bool PauseGame = false;
     int Puans=0;
     //public static AudioClip FuelSes, StupidSes;
-    public AudioClip[] Sesler;
+    public AudioClip[] Sesler;  //Array kullanımı ilginççç
 
    // private readonly Text RRPuan = GameObject.Find("Canvas/Text").GetComponent<Text>();
     //Ateş etmek için
@@ -38,7 +38,7 @@ public class UcakHareket : MonoBehaviour
      //   FuelSes = Resources.Load<AudioClip>("Fuel");
         FirePoint = transform.Find("FirePoint");
         Mermi = Resources.Load("Mermi") as GameObject;
-      //  RRPuan.text = "MSK";
+      
     }
 
     // Update is called once per frame
@@ -57,6 +57,8 @@ public class UcakHareket : MonoBehaviour
         
        if (Input.GetKeyUp(KeyCode.P))
         {
+            
+            GetComponent<AudioSource>().PlayOneShot(Sesler[1]);
             if (PauseGame)
             {
                 Time.timeScale = 0f; // Pause
@@ -69,16 +71,21 @@ public class UcakHareket : MonoBehaviour
             }
         }
 
-       
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
 
-        
-       if(Input.GetButtonDown("Fire1"))
+
+
+        if (Input.GetButtonDown("Fire1"))
         {
 
-          //  Debug.Log("ATEŞŞŞŞŞ");
-            AtesEtmek();
-
-
+            //  Debug.Log("ATEŞŞŞŞŞ");
+            //  
+            GetComponent<AudioSource>().pitch =1;
+            GetComponent<AudioSource>().PlayOneShot(Sesler[2]);
+                AtesEtmek();
         }
     }
 
@@ -93,6 +100,7 @@ public class UcakHareket : MonoBehaviour
         if(collision.gameObject.tag == "F")
         {
             Puans+=5;
+            GetComponent<AudioSource>().pitch=1.5F;
             GetComponent<AudioSource>().PlayOneShot(Sesler[0]);
             
           // Ses.PlayOneShot(FuelSes);
@@ -138,11 +146,12 @@ public class UcakHareket : MonoBehaviour
     private void AtesEtmek ()
     {
 
-        GameObject m = Instantiate(Mermi,FirePoint.transform.position,Quaternion.identity) as GameObject;
+        GameObject m = Instantiate(Mermi, this.gameObject.transform.Find("FirePoint"));
+
         m.transform.position = FirePoint.transform.position;
         m.transform.rotation = FirePoint.transform.rotation;
-        // m.GetComponent<Rigidbody2D>().AddForce(transform.forward * MermiHiz, ForceMode2D.Impulse);
-        m.GetComponent<Rigidbody2D>().AddForce(transform.forward * MermiHiz);
+         m.GetComponent<Rigidbody2D>().AddForce(transform.forward * MermiHiz, ForceMode2D.Impulse);
+      //  m.GetComponent<Rigidbody2D>().AddForce(transform.forward * MermiHiz);
 
         // Mermi yönü vermek
         Vector3 MermiScale = m.transform.localScale;
